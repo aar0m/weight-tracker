@@ -1,10 +1,10 @@
-class meal:
+class Meal:
     def __init__ (self, desc, cal, protein):
         self.desc = desc
         self.cal = cal
         self.protein = protein
 
-class snack:
+class Snack:
     def __init__ (self, name, servings, cal, protein):
         self.name = name
         self.servings = servings
