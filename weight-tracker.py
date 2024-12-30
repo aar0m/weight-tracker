@@ -6,33 +6,43 @@ import datetime
 
 
 # Format functions ///////////
+size = os.get_terminal_size()
 
 def prLine():
-    size = os.get_terminal_size()
     print("\n")
     print("=" * size.columns)
     print("\n")
 
 def prLineThin():
-    size = os.get_terminal_size()
     print("\n")
     print("-" * size.columns)
     print("\n")
 
+def prProgHead():
+    size = os.get_terminal_size()
+
+    prLine()
+    print("Weight Tracker 0.0.0".center(size.columns))
+    print("A Python program to track your calories, protein intake, and weight.".center(size.columns))
+    print("-----------------------------------------------".center(size.columns))
+    print("Created by Aaron Ramos (ramosaaron2@gmail.com)".center(size.columns))
+    print("Based on 'Expense Tracking App' Project by pixegami".center(size.columns))
+    prLine()
+
 def prCalHead():
     prLine()
-    print("Calorie Logging Process Initiated . . . ")
+    print("Calorie Logging Process Initiated".center(size.columns))
     prLine()
 
 def prSummHead():
     prLine()
-    print(f"Summarizing calories consumed . . .")
-    prLine()
+    print(f"Summarizing Calories Consumed".center(size.columns))
+    prLineThin()
 
 def prDetailHead():
     prLine()
-    print(f"Providing caloric breakdown and protein consumed . . .")
-    prLine()
+    print(f"Providing Caloric Breakdown and Protein Consumed".center(size.columns))
+    prLineThin()
 
 # Logic functions ////////////
 
@@ -63,8 +73,8 @@ def getCal():
         loggedFood = Meal(desc=mealDesc, cal=eatenCal, protein=eatenPrt)
         
         prLine()
-        print(f"Logging {loggedFood.cal} calories and {loggedFood.protein}g protein consumed for {mealTypes[chosenType]}.")
-        print(f"You ate {loggedFood.desc}!")
+        print(f"Logging {loggedFood.cal} calories and {loggedFood.protein}g protein consumed for {mealTypes[chosenType]}.".center(size.columns))
+        print(f"You ate {loggedFood.desc}!".center(size.columns))
         prLine()
 
     elif chosenType + 1 == len(mealTypes): # For Snacks
@@ -76,8 +86,8 @@ def getCal():
         loggedFood = Snack(name=snackName, servings=servSize, servCal=servCals, servProtein=servPrt)
        
         prLine()
-        print(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}.")
-        print(f"You ate {loggedFood.servings:.0f} servings of {loggedFood.name}!")
+        print(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}.".center(size.columns))
+        print(f"You ate {loggedFood.servings:.0f} servings of {loggedFood.name}!".center(size.columns))
         prLine()
 
     return loggedFood
@@ -120,9 +130,9 @@ def summCal(cal_file_path):
     prSummHead()
     foodCal = readList(cal_file_path)
 
-    print("Food Eaten".center(32, "-"))
+    print("Food Eaten".center(32, "-").center(size.columns))
     for food in foodCal:
-        print(food)
+        print(f"{food}".center(size.columns).ljust(size.columns))
     prLine()
 
 def summDetails(cal_file_path):
@@ -146,18 +156,18 @@ def summDetails(cal_file_path):
         else:
             prtByType[key] = food.protein
 
-    print("Calorie Breakdown:".center(32, "-"))
+    print("Calorie Breakdown:".center(32, "-").center(size.columns))
     for typeCal, amount in calByType.items():
-        print(f"{typeCal}s: {amount} calories")
+        print(f"{typeCal}s: {amount} calories".center(size.columns))
     prLineThin()
 
-    print("Protein Breakdown:".center(32, "-"))
+    print("Protein Breakdown:".center(32, "-").center(size.columns))
     for typeCal, amount in prtByType.items():
-        print(f"{typeCal}s: {amount}g protein".rjust(10, " "))
+        print(f"{typeCal}s: {amount}g protein".center(size.columns))
     prLine()
 
 def main():
-    # Introductory graphic
+    prProgHead()
     #TODO: Weight input using datetime
     #TODO: Average weight/week/month (good luck lol)
 
