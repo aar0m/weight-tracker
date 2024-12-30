@@ -13,13 +13,27 @@ def prLine():
     print("=" * size.columns)
     print("\n")
 
+def prLineThin():
+    size = os.get_terminal_size()
+    print("\n")
+    print("-" * size.columns)
+    print("\n")
+
 def getCalHead():
     prLine()
     print("Calorie Logging Process Initiated . . . ")
     prLine()
 
+def getSummHead():
+    prLine()
+    print(f"Summarizing calories consumed . . .")
+    prLine()
+
 # Logic functions ////////////
+
 def getCal():
+    # print("getCal() running successfully")
+    getCalHead()
     mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack"]
 
     while True: 
@@ -50,7 +64,7 @@ def getCal():
         prLine()
 
     elif chosenType + 1 == len(mealTypes): # For Snacks
-        snackName = html.escape(input("What is the name of your snack?:\n"))
+        snackName = html.escape(input("What is the name of your snack?: "))
         servSize  = float(input("\nEnter the number of servings eaten: "))
         servCals  = int(input("How many calories(kCal) are in each serving?: "))
         servPrt  = int(input("Enter the number of protein(g) in each serving: "))
@@ -65,29 +79,80 @@ def getCal():
     return loggedFood
 
 def saveCal(food, cal_file_path):
-    print("Logging Calories Eaten . . .")
+    # print("saveCal() running successfully")
     print(f"Recorded {food} to {cal_file_path}!")
     prLine()
     
     with open(cal_file_path, "a") as f:
         if isinstance(food, Meal):
-            f.write(f"{food.desc},{food.cal},{food.protein}\n")
+            f.write(f"M, {food.desc},{food.cal},{food.protein}\n")
 
         elif isinstance(food, Snack):
-            f.write(f"{food.name},{food.servings},{food.cal},{food.protein}\n")
-    pass
+            f.write(f"S, {food.name},{food.servings},{food.cal},{food.protein}\n")
 
 def summCal(cal_file_path):
     # print("summCal() running successfully")
-    pass
+    getSummHead()
+    foodCal = []
+
+    with open(cal_file_path, "r") as f:
+        lines = f.readlines()
+
+        for line in lines:
+            if line[0] == 'M':
+                calType, mealDesc, mealCal, mealPrt = line.strip().split(",")
+                line_cal = Meal(desc=mealDesc, cal=int(mealCal), protein=int(mealPrt))
+
+            elif line[0] == 'S':
+                calType, snackName, snackServ, snackCal, snackPrt = line.strip().split(",")
+                line_cal = Snack(
+                    name        = snackName, 
+                    servings    = float(snackServ), 
+                    servCal     = (float(snackCal) / float(snackServ)), 
+                    servProtein = (float(snackPrt) / float(snackServ)))
+            
+            foodCal.append(line_cal)
+
+    print("Food Eaten".center(32, "-"))
+    for food in foodCal:
+        print(food)
+
+    prLine()
+
+    calByType = {}
+    for food in foodCal:
+        key = food.type
+        if key in calByType:
+            calByType[key] += food.cal
+        else:
+            calByType[key] = food.cal
+
+
+    prtByType = {}
+    for food in foodCal:
+        key = food.type
+        if key in prtByType:
+            prtByType[key] += food.protein
+        else:
+            prtByType[key] = food.protein
+
+    print("Calorie Breakdown:".center(32, "-"))
+    for typeCal, amount in calByType.items():
+        print(f"{typeCal}s: {amount} calories")
+    prLineThin()
+
+    print("Protein Breakdown:".center(32, "-"))
+    for typeCal, amount in prtByType.items():
+        print(f"{typeCal}s: {amount}g protein".rjust(10, " "))
+    prLine()
+        
+
 
 def main():
     # Introductory graphic
     # Match case statement
 
     cal_file_path = "calorie.csv"
-
-    getCalHead()
     food = getCal()
     
     saveCal(food, cal_file_path)
