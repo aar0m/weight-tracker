@@ -19,21 +19,25 @@ def prLineThin():
     print("-" * size.columns)
     print("\n")
 
-def getCalHead():
+def prCalHead():
     prLine()
     print("Calorie Logging Process Initiated . . . ")
     prLine()
 
-def getSummHead():
+def prSummHead():
     prLine()
     print(f"Summarizing calories consumed . . .")
+    prLine()
+
+def prDetailHead():
+    prLine()
+    print(f"Providing caloric breakdown and protein consumed . . .")
     prLine()
 
 # Logic functions ////////////
 
 def getCal():
-    # print("getCal() running successfully")
-    getCalHead()
+    prCalHead()
     mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack"]
 
     while True: 
@@ -43,7 +47,7 @@ def getCal():
         break
 
     possVal = f"[1 - {len(mealTypes)}]"
-    chosenType = int(input(f"\nWhat kind of food are you logging? Enter a value from {possVal}: ")) - 1
+    chosenType = int(input(f"\nEnter a value from {possVal}: ")) - 1
 
     try:
         print(f"\nYou are logging a {mealTypes[chosenType]}.")
@@ -79,7 +83,6 @@ def getCal():
     return loggedFood
 
 def saveCal(food, cal_file_path):
-    # print("saveCal() running successfully")
     print(f"Recorded {food} to {cal_file_path}!")
     prLine()
     
@@ -90,9 +93,7 @@ def saveCal(food, cal_file_path):
         elif isinstance(food, Snack):
             f.write(f"S, {food.name},{food.servings},{food.cal},{food.protein}\n")
 
-def summCal(cal_file_path):
-    # print("summCal() running successfully")
-    getSummHead()
+def readList(cal_file_path):
     foodCal = []
 
     with open(cal_file_path, "r") as f:
@@ -112,12 +113,21 @@ def summCal(cal_file_path):
                     servProtein = (float(snackPrt) / float(snackServ)))
             
             foodCal.append(line_cal)
+    
+    return foodCal
+
+def summCal(cal_file_path):
+    prSummHead()
+    foodCal = readList(cal_file_path)
 
     print("Food Eaten".center(32, "-"))
     for food in foodCal:
         print(food)
-
     prLine()
+
+def summDetails(cal_file_path):
+    prDetailHead()
+    foodCal = readList(cal_file_path)
 
     calByType = {}
     for food in foodCal:
@@ -145,19 +155,35 @@ def summCal(cal_file_path):
     for typeCal, amount in prtByType.items():
         print(f"{typeCal}s: {amount}g protein".rjust(10, " "))
     prLine()
-        
-
 
 def main():
     # Introductory graphic
-    # Match case statement
+    #TODO: Weight input using datetime
+    #TODO: Average weight/week/month (good luck lol)
 
     cal_file_path = "calorie.csv"
-    food = getCal()
     
-    saveCal(food, cal_file_path)
-    
-    summCal(cal_file_path)
+    options = ["Log Calories", "Show Food Log", "Calorie/Protein Breakdown", "Exit"]
+
+    while True: 
+        print("\nWelcome! What would you like to do today?")
+        for i, option in enumerate(options):
+            print(f"{i+1}. {option}")
+        
+        possVal = f"[1 - {len(options)}]"
+        chosenOpt = int(input(f"\nEnter a value from {possVal}: ")) - 1
+        
+        match chosenOpt:
+            case 0:
+                food = getCal()
+                saveCal(food, cal_file_path)
+            case 1:
+                summCal(cal_file_path)
+            case 2:
+                summDetails(cal_file_path)
+            case 3:
+                print("Exiting Now".center(32, "-"), "\n")
+                break
 
 if __name__  == "__main__":
     main()
