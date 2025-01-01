@@ -1,5 +1,5 @@
 # Weight Tracker 1.1.0 
-A tool to log calories, protein, and track weight using Python.  
+A tool to log calories, protein, and track weight using Python.
 ### Created by [Aaron Ramos](https://aar0m.github.io/portfolio/) 
 Based on [Expense Tracking App Project](https://youtu.be/HTD86h69PtE?t=0) by [pixegami](https://www.youtube.com/@pixegami)  
 
@@ -15,14 +15,14 @@ Download the repository and execute `weight-tracker.py` on some terminal. Doing 
 
 For convenience, all calorie and weight sheets are stored in directories `/calorie-sheets` and `/weight-sheets`
 
-## 1.1.1 Release
+## v1.1.1 Bugfix
 - Fixed instance where `summWeightToday()` prints incorrect date if no weight is logged for that day (now shows most recent weight entry and reminds user to log their weight today)
 - Moved `calorie20XX.csv` and `weight20XX.csv` to folder `calorie-sheets` and `weight-sheets`
 
-## 1.1.0 Release
+## v1.1.0 Update - Weekly Weight Average
 - Added function to calculate average weight over a week/7 day period (`summWeightWeek()`)
 
-## 1.0.0 Release
+## v1.0.0 Release
 - Added functions for `Snack`/`Meal` logging and tracking (`getCal()`, `saveCal()`, `readCalList()`, `summCal()`, `summCalDetails()`)
 - Added functions for `Weight` logging and tracking (`getWeight()`, `saveWeight()`, `readWeightList()`, `summWeightToday()`)
 
