@@ -157,9 +157,10 @@ def saveWeight(weight, weight_file_path):
     try:
         with open(weight_file_path, "r+") as f:
             lines = f.readlines()
+            lineDate = lines[-1].split(",")[0]
             # DEBUG: print(f"{lines[len(lines)-1].split(",")[0] == str(datetime.date.today())}")
 
-            if lines[-1].split(",")[0] == str(datetime.date.today()):
+            if lineDate == str(datetime.date.today()):
                 lines[-1] = f"{datetime.date.today()}, {weight}\n"
                 
                 with open(weight_file_path, "w") as f:
@@ -196,9 +197,9 @@ def weightInterface(weight_file_path):
         case 1:
             summWeightWeek(weight_file_path)
         case 2:
-            pass
+            pass #TODO: add monthly using key check
         case 3:
-            pass
+            pass #TODO: add yearly using key check
         case 4:
             print("Returning to Main Menu".center(32, "-"), "\n")
             exit
@@ -252,6 +253,29 @@ def summWeightWeek(weight_file_path):
     print("\n" + f"Your average weight over the past week is {avgWeight:.2f}lbs.".center(size.columns))
     prLine()
 
+def summWeightMonth(weight_file_path):
+    prMethodHead(f"Calculating Average Weight Over {datetime.date.today().strftime("%B")}")
+    wList = readWeightList(weight_file_path)
+    avgWeight = 0
+    
+    wListMonth = []
+    for weight in wList:
+        todayMonth = datetime.date.today().strftime("%B")
+        wEntryMonth = datetime.datetime.strptime(weight.date, '%Y-%m-%d').date().strftime("%B")
+        
+        if todayMonth == wEntryMonth:
+            wListMonth.append(weight)
+    
+    for wEntry in wListMonth:
+        print(f"{wEntry}".center(size.columns))
+        avgWeight += float(wEntry.weight)
+    
+    avgWeight = avgWeight / len(wListMonth)
+
+    print("\n" + f"Your average weight over {datetime.date.today().strftime("%B")} is {avgWeight:.2f}lbs.".center(size.columns))
+    prLine()
+
+
 def main():
     prProgHead()
     #TODO: Average weight/week/month (good luck lol)
@@ -281,11 +305,20 @@ def main():
                 weight = getWeight()
                 saveWeight(weight, weight_file_path)
             case 2:
-                summCal(cal_file_path)
+                try:
+                    summCal(cal_file_path)
+                except FileNotFoundError:
+                    prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime("%Y")}!")
+                    exit
             case 3:
-                summCalDetails(cal_file_path)
+                try:
+                    summCalDetails(cal_file_path)
+                except FileNotFoundError:
+                    prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime("%Y")}!")
+                    exit
             case 4:
-                weightInterface(weight_file_path)
+                summWeightMonth(weight_file_path)
+                # weightInterface(weight_file_path)
             case 5:
                 print("Exiting Now".center(32, "-"), "\n")
                 break
