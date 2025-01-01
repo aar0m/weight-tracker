@@ -26,7 +26,7 @@ def prProgHead():
 def prMethodHead(text):
     prLine()
     print(f"{text}".center(size.columns))
-    prLine()
+    print("\n" + "=" * size.columns + "\n")
 
 def prErrorMes(text):
     print("\n" + ("x" * int(size.columns/2)).center(size.columns) + "\n")
@@ -173,11 +173,13 @@ def saveWeight(weight, weight_file_path):
         with open(weight_file_path, "a") as f:
             f.write(f"{datetime.date.today()}, {weight}\n")
         f.close()
-'''
-def weightInterface():
-    options = ["Today", "Week (7 Days)", "Month", "Year"]
 
-    print("Which weight(s) would you")
+def weightInterface(weight_file_path):
+    prMethodHead("Summarizing Logged Weight")
+
+    options = ["Today", "Week (7 Days)", "Month", "Year", "Return to Main Menu"]
+
+    print("Which weight(s) would you like to view?")
     for i, option in enumerate(options):
         print(f"{i+1}. {option}")
     
@@ -187,7 +189,22 @@ def weightInterface():
         chosenOpt = int(input(f"\nEnter a value from {possVal}: ")) - 1
     except ValueError:
         chosenOpt = 99999
-'''
+    
+    match chosenOpt:
+        case 0:
+            summWeightToday(weight_file_path)
+        case 1:
+            summWeightWeek(weight_file_path)
+        case 2:
+            pass
+        case 3:
+            pass
+        case 4:
+            print("Returning to Main Menu".center(32, "-"), "\n")
+            exit
+        case _:
+            prErrorMes(f"ERROR: Invalid input. Please enter a value from {possVal}.")
+
 def readWeightList(weight_file_path):
     weightList = []
 
@@ -268,8 +285,7 @@ def main():
             case 3:
                 summCalDetails(cal_file_path)
             case 4:
-                # summWeightWeek(weight_file_path)
-                summWeightToday(weight_file_path)
+                weightInterface(weight_file_path)
             case 5:
                 print("Exiting Now".center(32, "-"), "\n")
                 break

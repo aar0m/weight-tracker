@@ -15,11 +15,14 @@ Download the repository and execute `weight-tracker.py` on some terminal. Doing 
 
 For convenience, all calorie and weight sheets are stored in directories `/calorie-sheets` and `/weight-sheets`
 
+## v1.2.0 Update
+- Added **View Weight** interface so user can now choose to view day-of weight (`summWeightToday()`) or average weight over the week (`summWeightWeek()`)
+
 ## v1.1.1 Bugfix
 - Fixed instance where `summWeightToday()` prints incorrect date if no weight is logged for that day (now shows most recent weight entry and reminds user to log their weight today)
 - Moved `calorie20XX.csv` and `weight20XX.csv` to folder `calorie-sheets` and `weight-sheets`
 
-## v1.1.0 Update - Weekly Weight Average
+## v1.1.0 Update
 - Added function to calculate average weight over a week/7 day period (`summWeightWeek()`)
 
 ## v1.0.0 Release
