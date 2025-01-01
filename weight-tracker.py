@@ -1,5 +1,6 @@
 from food import Meal
 from food import Snack
+from food import Weight
 import html
 import os
 import datetime
@@ -15,7 +16,7 @@ def prProgHead():
     size = os.get_terminal_size()
 
     prLine()
-    print("Weight Tracker 0.0.0".center(size.columns))
+    print("Weight Tracker 1.0.0".center(size.columns))
     print("A Python program to track your calories, protein intake, and weight.".center(size.columns))
     print("-----------------------------------------------".center(size.columns))
     print("Created by Aaron Ramos (ramosaaron2@gmail.com)".center(size.columns))
@@ -61,7 +62,7 @@ def getCal():
 
         loggedFood = Meal(date=datetime.date.today(), desc=mealDesc, cal=eatenCal, protein=eatenPrt)
         
-        prMethodHead(f"Logging {loggedFood.cal} calories and {loggedFood.protein}g protein consumed for {mealTypes[chosenType]}.\nYou ate {loggedFood.desc}!")
+        prMethodHead(f"Logging {loggedFood.cal} calories and {loggedFood.protein}g protein consumed for {mealTypes[chosenType]}. You ate {loggedFood.desc}!")
 
     elif chosenType + 1 == len(mealTypes): # For Snacks
         snackName = html.escape(input("What is the name of your snack?: "))
@@ -71,7 +72,7 @@ def getCal():
 
         loggedFood = Snack(date=datetime.date.today(), name=snackName, servings=servSize, servCal=servCals, servProtein=servPrt)
        
-        prMethodHead(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}.\nYou ate {loggedFood.servings:.0f} servings of {loggedFood.name}!")
+        prMethodHead(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}. You ate {loggedFood.servings:.0f} servings of {loggedFood.name}!")
 
     return loggedFood
 
@@ -148,7 +149,7 @@ def getWeight():
     return weight
 
 def saveWeight(weight, weight_file_path):
-    prMethodHead("Recorded {weight}lbs to {weight_file_path}!")
+    prMethodHead(f"Recorded {weight}lbs to {weight_file_path}!")
     
     try:
         with open(weight_file_path, "r+") as f:
@@ -169,16 +170,48 @@ def saveWeight(weight, weight_file_path):
         with open(weight_file_path, "a") as f:
             f.write(f"{datetime.date.today()}, {weight}\n")
         f.close()
+'''
+def weightInterface():
+    options = ["Today", "Week (7 Days)", "Month", "Year"]
+
+    print("Which weight(s) would you")
+    for i, option in enumerate(options):
+        print(f"{i+1}. {option}")
+    
+    possVal = f"[1 - {len(options)}]"
+    
+    try:
+        chosenOpt = int(input(f"\nEnter a value from {possVal}: ")) - 1
+    except ValueError:
+        chosenOpt = 99999
+'''
+def readWeightList(weight_file_path):
+    weightList = []
+
+    with open(weight_file_path, "r") as f:
+        lines = f.readlines()
+        
+        for line in lines:
+            weightDate, weightNum = line.strip().split(",")
+            line_weight = Weight(date=weightDate, weight=weightNum)
+
+            weightList.append(line_weight)
+    f.close
+
+    return weightList
+
+def summWeightToday(weight_file_path):
+    wList = readWeightList(weight_file_path)
+    prMethodHead(f"Your weight as of {datetime.date.today().strftime("%A, %B %d %Y")} is {wList[-1].weight}lbs.")
 
 def main():
     prProgHead()
-    #TODO: Weight input using datetime
     #TODO: Average weight/week/month (good luck lol)
 
     cal_file_path = f"calorie{datetime.date.today().strftime("%Y")}.csv"
     weight_file_path = f"weight{datetime.date.today().strftime("%Y")}.csv"
     
-    options = ["Log Calories", "Log Weight", "Show Entire Food Log", "Show Daily Intake", "Exit"]
+    options = ["Log Calories", "Log Weight", "View Weight", f"View {datetime.date.today().strftime("%Y")} Food Log", "View Daily Calories/Protein", "Exit"]
 
     while True: 
         print("Welcome! What would you like to do today?")
@@ -200,10 +233,12 @@ def main():
                 weight = getWeight()
                 saveWeight(weight, weight_file_path)
             case 2:
-                summCal(cal_file_path)
+                summWeightToday(weight_file_path)
             case 3:
-                summCalDetails(cal_file_path)
+                summCal(cal_file_path)
             case 4:
+                summCalDetails(cal_file_path)
+            case 5:
                 print("Exiting Now".center(32, "-"), "\n")
                 break
             case _:
