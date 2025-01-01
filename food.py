@@ -7,7 +7,7 @@ class Meal:
         self.protein = protein
 
     def __repr__(self):
-        return f"[{self.date}] {self.type}:{self.desc}, {self.cal:.0f} calories, {self.protein:.0f}g protein"
+        return f"[{self.date}] {self.type}: {self.desc}, {self.cal:.0f} calories, {self.protein:.0f}g protein"
 
 class Snack:
     def __init__ (self, date, name, servings, servCal, servProtein):
@@ -21,7 +21,7 @@ class Snack:
         self.protein = self.servings * self.servPrt
     
     def __repr__(self):
-        return f"[{self.date}] {self.type}:{self.name}, {self.servings:.0f} servings, {self.cal:.0f} calories, {self.protein:.0f}g protein"
+        return f"[{self.date}] {self.type}: {self.name}, {self.servings:.0f} servings, {self.cal:.0f} calories, {self.protein:.0f}g protein"
     
 class Weight:
     def __init__ (self, date, weight):

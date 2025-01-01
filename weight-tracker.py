@@ -72,7 +72,10 @@ def getCal():
 
         loggedFood = Snack(date=datetime.date.today(), name=snackName, servings=servSize, servCal=servCals, servProtein=servPrt)
        
-        prMethodHead(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}. You ate {loggedFood.servings:.0f} servings of {loggedFood.name}!")
+        prLine()
+        print(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}.".center(size.columns))
+        print(f"You ate {loggedFood.servings:.0f} servings of {loggedFood.name}!".center(size.columns))
+        prLine()
 
     return loggedFood
 
@@ -204,6 +207,27 @@ def summWeightToday(weight_file_path):
     wList = readWeightList(weight_file_path)
     prMethodHead(f"Your weight as of {datetime.date.today().strftime("%A, %B %d %Y")} is {wList[-1].weight}lbs.")
 
+def summWeightWeek(weight_file_path):
+    prMethodHead("Calculating Average Weight Over the Past Week")
+    wList = readWeightList(weight_file_path)
+    avgWeight = 0
+
+    if len(wList) < 7:
+        for weight in wList:
+            print(f"{weight}".center(size.columns))
+            avgWeight += float(weight.weight)
+        
+        avgWeight = avgWeight / len(wList)
+    else:
+        for weight in wList[len(wList)-7:len(wList)]:
+            print(f"{weight}".center(size.columns))
+            avgWeight += float(weight.weight)
+
+        avgWeight = avgWeight / 7
+
+    print("\n" + f"Your average weight over the past week is {avgWeight:.2f}lbs.".center(size.columns))
+    prLine()
+
 def main():
     prProgHead()
     #TODO: Average weight/week/month (good luck lol)
@@ -211,7 +235,7 @@ def main():
     cal_file_path = f"calorie{datetime.date.today().strftime("%Y")}.csv"
     weight_file_path = f"weight{datetime.date.today().strftime("%Y")}.csv"
     
-    options = ["Log Calories", "Log Weight", "View Weight", f"View {datetime.date.today().strftime("%Y")} Food Log", "View Daily Calories/Protein", "Exit"]
+    options = ["Log Calories", "Log Weight", f"View {datetime.date.today().strftime("%Y")} Food Log", "View Daily Calories/Protein", "View Weight", "Exit"]
 
     while True: 
         print("Welcome! What would you like to do today?")
@@ -233,11 +257,12 @@ def main():
                 weight = getWeight()
                 saveWeight(weight, weight_file_path)
             case 2:
-                summWeightToday(weight_file_path)
-            case 3:
                 summCal(cal_file_path)
-            case 4:
+            case 3:
                 summCalDetails(cal_file_path)
+            case 4:
+                summWeightWeek(weight_file_path)
+                # summWeightToday(weight_file_path)
             case 5:
                 print("Exiting Now".center(32, "-"), "\n")
                 break
