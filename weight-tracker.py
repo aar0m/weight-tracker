@@ -1,10 +1,10 @@
 from food import Meal
 from food import Snack
 from food import Weight
+from datetime import datetime
 import html
 import os
 import datetime
-
 
 # Format functions ///////////
 size = os.get_terminal_size()
@@ -16,7 +16,7 @@ def prProgHead():
     size = os.get_terminal_size()
 
     prLine()
-    print("Weight Tracker 1.0.0".center(size.columns))
+    print("Weight Tracker 1.1.0".center(size.columns))
     print("A Python program to track your calories, protein intake, and weight.".center(size.columns))
     print("-----------------------------------------------".center(size.columns))
     print("Created by Aaron Ramos (ramosaaron2@gmail.com)".center(size.columns))
@@ -205,7 +205,14 @@ def readWeightList(weight_file_path):
 
 def summWeightToday(weight_file_path):
     wList = readWeightList(weight_file_path)
-    prMethodHead(f"Your weight as of {datetime.date.today().strftime("%A, %B %d %Y")} is {wList[-1].weight}lbs.")
+
+    if wList[-1].date == str(datetime.date.today()):
+        prMethodHead(f"Your weight as of {datetime.date.today().strftime("%A, %B %d %Y")} is{wList[-1].weight}lbs.")
+    else:
+        prLine()
+        print("You have not logged your weight today!".center(size.columns))
+        print(f"Your weight as of {datetime.datetime.strptime(wList[-1].date, '%Y-%m-%d').date().strftime("%A, %B %d %Y")} is{wList[-1].weight}lbs.".center(size.columns))
+        prLine()
 
 def summWeightWeek(weight_file_path):
     prMethodHead("Calculating Average Weight Over the Past Week")
@@ -232,8 +239,8 @@ def main():
     prProgHead()
     #TODO: Average weight/week/month (good luck lol)
 
-    cal_file_path = f"calorie{datetime.date.today().strftime("%Y")}.csv"
-    weight_file_path = f"weight{datetime.date.today().strftime("%Y")}.csv"
+    cal_file_path = f"calorie-sheets/calorie{datetime.date.today().strftime("%Y")}.csv"
+    weight_file_path = f"weight-sheets/weight{datetime.date.today().strftime("%Y")}.csv"
     
     options = ["Log Calories", "Log Weight", f"View {datetime.date.today().strftime("%Y")} Food Log", "View Daily Calories/Protein", "View Weight", "Exit"]
 
@@ -261,8 +268,8 @@ def main():
             case 3:
                 summCalDetails(cal_file_path)
             case 4:
-                summWeightWeek(weight_file_path)
-                # summWeightToday(weight_file_path)
+                # summWeightWeek(weight_file_path)
+                summWeightToday(weight_file_path)
             case 5:
                 print("Exiting Now".center(32, "-"), "\n")
                 break
