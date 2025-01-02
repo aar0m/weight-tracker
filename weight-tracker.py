@@ -75,7 +75,10 @@ def getCal():
 
         loggedFood = Meal(date=datetime.date.today(), desc=mealDesc, cal=eatenCal, protein=eatenPrt)
         
-        prMethodHead(f"Logging {loggedFood.cal} calories and {loggedFood.protein}g protein consumed for {mealTypes[chosenType]}. You ate {loggedFood.desc}!")
+        prLine()
+        print(f"Logging {loggedFood.cal} calories and {loggedFood.protein}g protein from {mealTypes[chosenType]}.".center(size.columns))
+        print(f"You ate {loggedFood.desc}!".center(size.columns))
+        prLine()
 
     elif chosenType + 1 == len(mealTypes): # For Snacks
         snackName = html.escape(input("What is the name of your snack?: "))
@@ -86,7 +89,7 @@ def getCal():
         loggedFood = Snack(date=datetime.date.today(), name=snackName, servings=servSize, servCal=servCals, servProtein=servPrt)
        
         prLine()
-        print(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein consumed for a {mealTypes[chosenType]}.".center(size.columns))
+        print(f"Logging {loggedFood.cal:.0f} calories and {loggedFood.protein:.0f}g protein from a {mealTypes[chosenType]}.".center(size.columns))
         print(f"You ate {loggedFood.servings:.0f} servings of {loggedFood.name}!".center(size.columns))
         prLine()
 
