@@ -170,9 +170,8 @@ def saveWeight(weight, weight_file_path):
     try:
         with open(weight_file_path, "r+") as f:
             lines = f.readlines()
-            lineDate = lines[-1].split(",")[0]
 
-            if lineDate == str(datetime.date.today()):
+            if lines[-1].split(",")[0] == str(datetime.date.today()):
                 lines[-1] = f"{datetime.date.today()}, {weight}\n"
                 
                 with open(weight_file_path, "w") as f:
