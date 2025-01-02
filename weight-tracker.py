@@ -192,7 +192,7 @@ def saveWeight(weight, weight_file_path):
 def weightInterface(weight_file_path):
     prMethodHead("Summarizing Logged Weight")
 
-    options = ["Today", "Week", "Month", "Year", f"View {datetime.date.today().strftime("%Y")} Weight Log", "Return to Main Menu"]
+    options = ["Today", "Week", "Month", "Year", f"View {datetime.date.today().strftime('%Y')} Weight Log", "Return to Main Menu"]
 
     print("Which weight(s) would you like to view?")
     for i, option in enumerate(options):
