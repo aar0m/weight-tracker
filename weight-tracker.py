@@ -178,7 +178,7 @@ def saveWeight(weight, weight_file_path):
 def weightInterface(weight_file_path):
     prMethodHead("Summarizing Logged Weight")
 
-    options = ["Today", "Week (7 Days)", "Month", "Year", "Return to Main Menu"]
+    options = ["Today", "Week", "Month", "Year", "Return to Main Menu"]
 
     print("Which weight(s) would you like to view?")
     for i, option in enumerate(options):
@@ -197,9 +197,9 @@ def weightInterface(weight_file_path):
         case 1:
             summWeightWeek(weight_file_path)
         case 2:
-            pass #TODO: add monthly using key check
+            summWeightMonth(weight_file_path)
         case 3:
-            pass #TODO: add yearly using key check
+            summWeightYear(weight_file_path)
         case 4:
             print("Returning to Main Menu".center(32, "-"), "\n")
             exit
@@ -250,7 +250,7 @@ def summWeightWeek(weight_file_path):
 
         avgWeight = avgWeight / 7
 
-    print("\n" + f"Your average weight over the past week is {avgWeight:.2f}lbs.".center(size.columns))
+    print("\n" + f"Your average weight over the past week is {avgWeight:.1f}lbs.".center(size.columns))
     prLine()
 
 def summWeightMonth(weight_file_path):
@@ -275,13 +275,39 @@ def summWeightMonth(weight_file_path):
     print("\n" + f"Your average weight over {datetime.date.today().strftime("%B")} is {avgWeight:.2f}lbs.".center(size.columns))
     prLine()
 
+def summWeightYear(weight_file_path):
+    prMethodHead(f"Calculating Average Weight Over {datetime.date.today().strftime("%Y")}")
+    wList = readWeightList(weight_file_path)
+    avgYrWeight = 0
+
+    wYears = {}
+    for weight in wList:
+        key = datetime.datetime.strptime(weight.date, '%Y-%m-%d').date().strftime("%B")
+        if key in wYears:
+            # print(f"{weight.date:<12}{weight.weight:<8}".format(weight))
+            wYears[key] = [wYears[key][0] + float(weight.weight), wYears[key][1] + 1]
+        else:
+            # print(f"{key}")
+            # print(f"{weight.date:<12}{weight.weight:<8}".format(weight))
+            wYears[key] = [float(weight.weight), 1]
+    
+    # Get average weight over the entire year
+    print("Your average weight for each month:".center(size.columns) + "\n")
+    for month, weight in wYears.items():
+        avgYrWeight += weight[0]
+        print(f"{month}: {(weight[0] / weight[1]):.1f}lbs".center(size.columns))
+    
+    avgYrWeight = avgYrWeight / len(wList)
+    
+    prMethodHead(f"Your average weight in {datetime.date.today().strftime("%Y")} is {avgYrWeight:.1f}lbs.")
+    
 
 def main():
     prProgHead()
     #TODO: Average weight/week/month (good luck lol)
 
-    cal_file_path = f"calorie-sheets/calorie{datetime.date.today().strftime("%Y")}.csv"
-    weight_file_path = f"weight-sheets/weight{datetime.date.today().strftime("%Y")}.csv"
+    cal_file_path = f"tracker-sheets/calorie/calorie{datetime.date.today().strftime("%Y")}.csv"
+    weight_file_path = f"tracker-sheets/weight/weight{datetime.date.today().strftime("%Y")}.csv"
     
     options = ["Log Calories", "Log Weight", f"View {datetime.date.today().strftime("%Y")} Food Log", "View Daily Calories/Protein", "View Weight", "Exit"]
 
@@ -317,8 +343,11 @@ def main():
                     prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime("%Y")}!")
                     exit
             case 4:
-                summWeightMonth(weight_file_path)
-                # weightInterface(weight_file_path)
+                try:
+                    weightInterface(weight_file_path)
+                except FileNotFoundError:
+                    prErrorMes(f"ERROR: You have not logged any weights for {datetime.date.today().strftime("%Y")}!")
+                    exit
             case 5:
                 print("Exiting Now".center(32, "-"), "\n")
                 break
