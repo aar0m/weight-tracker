@@ -1,3 +1,17 @@
+"""
+///                     -------------------------
+///                       Weight Tracker v1.3.1
+///                     -------------------------
+///                        By Aaron Ramos 2025
+///
+/// Python file to run for logging and viewing calories, protein, and weight.
+/// Based on 'Expense Tracking App' Project by pixegami
+///
+/// @file weight-tracker.py
+/// @author Aaron Ramos (ramosaaron2@gmail.com)
+///
+"""
+
 from food import Meal
 from food import Snack
 from food import Weight
@@ -8,7 +22,7 @@ import datetime
 
 size = os.get_terminal_size()
 
-# Format functions ///////////
+# Format functions
 def prLine():
     print("\n" + "=" * size.columns + "\n")
 
@@ -33,7 +47,7 @@ def prErrorMes(text):
     print(f"{text}".center(size.columns))
     print("\n" + ("x" * int(size.columns/2)).center(size.columns) + "\n")
 
-# Logic functions ////////////
+# Logic functions
 def getCal():
     prMethodHead("Calorie Logging Process Initiated")
     mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack"]

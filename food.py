@@ -1,3 +1,17 @@
+"""
+///                     -------------------------
+///                       Weight Tracker v1.3.1
+///                     -------------------------
+///                        By Aaron Ramos 2025
+///
+/// Python classes to instantiate 'Meal', 'Snack', and 'Weight' objects.
+///
+///
+/// @file food.py
+/// @author Aaron Ramos (ramosaaron2@gmail.com)
+///
+"""
+
 class Meal:
     def __init__ (self, date, desc, cal, protein):
         self.date = date
