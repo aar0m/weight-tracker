@@ -1,6 +1,6 @@
-# Weight Tracker v1.2.0 
-A tool to log calories, protein, and track weight using Python.
+# Weight Tracker v1.3.1
 ### Created by [Aaron Ramos](https://aar0m.github.io/portfolio/) 
+A tool to log calories, protein, and track weight using Python.  
 Based on [Expense Tracking App Project](https://youtu.be/HTD86h69PtE?t=0) by [pixegami](https://www.youtube.com/@pixegami)  
 
 ## How to Use
@@ -13,7 +13,18 @@ Download the repository and execute `weight-tracker.py` on some terminal. Doing 
 5. **View Weight** - *shows average weight based on chosen option (day, week, month)*
 6. **Exit** - *exits the program*
 
-For convenience, all calorie and weight sheets are stored in directories `/calorie-sheets` and `/weight-sheets`
+For convenience, all calorie and weight sheets are stored in the `/tracker-sheets` directory.
+
+## v1.3.1 Bugfix
+- Added exception to `FileNotFound` Error
+- Added exception handling for instances where `weight20XX.csv` doesn't exist
+- Moved sheets to new folder `/tracker-sheets`
+
+## v1.3.0 Update
+- Added feature to view average weight for the current month (`summWeighMonth()`)
+- Added feature to view average weight over the year and average monthly weight (`summWeightYear()`)
+- Added calendar weight (`summWeightCalendar()`)
+- Monthly now provides average difference
 
 ## v1.2.0 Update
 - Added **View Weight** interface so user can now choose to view day-of weight (`summWeightToday()`) or average weight over the week (`summWeightWeek()`)
@@ -40,7 +51,7 @@ For convenience, all calorie and weight sheets are stored in directories `/calor
 
 ### `Meal`
 - Date logged
-- Type (Snack/Meal)
+- Type (`Snack`/`Meal`)
 - Description of `Meal`
 - Calories and protein in `Meal`
 
