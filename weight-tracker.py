@@ -1,6 +1,6 @@
 """
 ///                     -------------------------
-///                       Weight Tracker v1.3.1
+///                       Weight Tracker v1.3.2
 ///                     -------------------------
 ///                        By Aaron Ramos 2025
 ///
@@ -30,7 +30,7 @@ def prProgHead():
     size = os.get_terminal_size()
 
     prLine()
-    print("Weight Tracker 1.3.1".center(size.columns))
+    print("Weight Tracker 1.3.2".center(size.columns))
     print("A Python program to track your calories, protein intake, and weight.".center(size.columns))
     print("-----------------------------------------------".center(size.columns))
     print("Created by Aaron Ramos (ramosaaron2@gmail.com)".center(size.columns))
@@ -93,7 +93,7 @@ def getCal():
     return loggedFood
 
 def saveCal(food, cal_file_path):
-    prMethodHead(f"Recorded {food} to {str(cal_file_path).split("/")[2]}!")
+    prMethodHead(f"Recorded {food} to {str(cal_file_path).split('/')[2]}!")
     
     with open(cal_file_path, "a") as f:
         if isinstance(food, Meal):
@@ -165,13 +165,12 @@ def getWeight():
     return weight
 
 def saveWeight(weight, weight_file_path):
-    prMethodHead(f"Recorded {weight}lbs to {str(weight_file_path).split("/")[2]}!")
+    prMethodHead(f"Recorded {weight}lbs to {str(weight_file_path).split('/')[2]}!")
     
     try:
         with open(weight_file_path, "r+") as f:
             lines = f.readlines()
             lineDate = lines[-1].split(",")[0]
-            # DEBUG: print(f"{lines[len(lines)-1].split(",")[0] == str(datetime.date.today())}")
 
             if lineDate == str(datetime.date.today()):
                 lines[-1] = f"{datetime.date.today()}, {weight}\n"
@@ -240,11 +239,11 @@ def summWeightToday(weight_file_path):
     wList = readWeightList(weight_file_path)
 
     if wList[-1].date == str(datetime.date.today()):
-        prMethodHead(f"Your weight as of {datetime.date.today().strftime("%A, %B %d %Y")} is{wList[-1].weight}lbs.")
+        prMethodHead(f"Your weight as of {datetime.date.today().strftime('%A, %B %d %Y')} is{wList[-1].weight}lbs.")
     else:
         prLine()
         print("You have not logged your weight today!".center(size.columns))
-        print(f"Your weight as of {datetime.datetime.strptime(wList[-1].date, '%Y-%m-%d').date().strftime("%A, %B %d %Y")} is{wList[-1].weight}lbs.".center(size.columns))
+        print(f"Your weight as of {datetime.datetime.strptime(wList[-1].date, '%Y-%m-%d').date().strftime('%A, %B %d %Y')} is{wList[-1].weight}lbs.".center(size.columns))
         prLine()
 
 def summWeightWeek(weight_file_path):
@@ -269,7 +268,7 @@ def summWeightWeek(weight_file_path):
     prLine()
 
 def summWeightMonth(weight_file_path):
-    prMethodHead(f"Calculating Average Weight Over {datetime.date.today().strftime("%B")}")
+    prMethodHead(f"Calculating Average Weight Over {datetime.date.today().strftime('%B')}")
     wList = readWeightList(weight_file_path)
     avgWeight = 0
     
@@ -287,11 +286,11 @@ def summWeightMonth(weight_file_path):
     
     avgWeight = avgWeight / len(wListMonth)
 
-    print("\n" + f"Your average weight over {datetime.date.today().strftime("%B")} is {avgWeight:.2f}lbs.".center(size.columns))
+    print("\n" + f"Your average weight over {datetime.date.today().strftime('%B')} is {avgWeight:.2f}lbs.".center(size.columns))
     prLine()
 
 def summWeightYear(weight_file_path):
-    prMethodHead(f"Calculating Average Weight Over {datetime.date.today().strftime("%Y")}")
+    prMethodHead(f"Calculating Average Weight Over {datetime.date.today().strftime('%Y')}")
     wList = readWeightList(weight_file_path)
     avgYrWeight = 0
 
@@ -299,11 +298,8 @@ def summWeightYear(weight_file_path):
     for weight in wList:
         key = datetime.datetime.strptime(weight.date, '%Y-%m-%d').date().strftime("%B")
         if key in wYears:
-            # print(f"{weight.date:<12}{weight.weight:<8}".format(weight))
             wYears[key] = [wYears[key][0] + float(weight.weight), wYears[key][1] + 1]
         else:
-            # print(f"{key}")
-            # print(f"{weight.date:<12}{weight.weight:<8}".format(weight))
             wYears[key] = [float(weight.weight), 1]
     
     # Get average weight over the entire year
@@ -314,10 +310,10 @@ def summWeightYear(weight_file_path):
     
     avgYrWeight = avgYrWeight / len(wList)
     
-    prMethodHead(f"Your average weight in {datetime.date.today().strftime("%Y")} is {avgYrWeight:.1f}lbs.")
+    prMethodHead(f"Your average weight in {datetime.date.today().strftime('%Y')} is {avgYrWeight:.1f}lbs.")
 
 def summWeightCalendar(weight_file_path):
-    prMethodHead(f"Displaying Weight Over {datetime.date.today().strftime("%Y")}")
+    prMethodHead(f"Displaying Weight Over {datetime.date.today().strftime('%Y')}")
     wList = readWeightList(weight_file_path)
 
     wYears = {}
@@ -335,10 +331,10 @@ def summWeightCalendar(weight_file_path):
 def main():
     prProgHead()
 
-    cal_file_path = f"tracker-sheets/calorie/calorie{datetime.date.today().strftime("%Y")}.csv"
-    weight_file_path = f"tracker-sheets/weight/weight{datetime.date.today().strftime("%Y")}.csv"
+    cal_file_path = f"tracker-sheets/calorie/calorie{datetime.date.today().strftime('%Y')}.csv"
+    weight_file_path = f"tracker-sheets/weight/weight{datetime.date.today().strftime('%Y')}.csv"
     
-    options = ["Log Calories", "Log Weight", f"View {datetime.date.today().strftime("%Y")} Food Log", "View Daily Calories/Protein", "View Weight", "Exit"]
+    options = ["Log Calories", "Log Weight", f"View {datetime.date.today().strftime('%Y')} Food Log", "View Daily Calories/Protein", "View Weight", "Exit"]
 
     while True: 
         print("Welcome! What would you like to do today?")
@@ -363,19 +359,19 @@ def main():
                 try:
                     summCal(cal_file_path)
                 except FileNotFoundError:
-                    prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime("%Y")}!")
+                    prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime('%Y')}!")
                     exit
             case 3:
                 try:
                     summCalDetails(cal_file_path)
                 except FileNotFoundError:
-                    prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime("%Y")}!")
+                    prErrorMes(f"ERROR: You have not logged any calories for {datetime.date.today().strftime('%Y')}!")
                     exit
             case 4:
                 try:
                     weightInterface(weight_file_path)
                 except FileNotFoundError:
-                    prErrorMes(f"ERROR: You have not logged any weights for {datetime.date.today().strftime("%Y")}!")
+                    prErrorMes(f"ERROR: You have not logged any weights for {datetime.date.today().strftime('%Y')}!")
                     exit
             case 5:
                 print("Exiting Now".center(32, "-"), "\n")
