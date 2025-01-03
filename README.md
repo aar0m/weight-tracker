@@ -1,4 +1,4 @@
-# Weight Tracker v1.4.1
+# Weight Tracker v1.4.2
 ### Created by [Aaron Ramos](https://aar0m.github.io/portfolio/) 
 A tool to log calories, protein, and track weight using Python.  
 Based on [Expense Tracking App Project](https://youtu.be/HTD86h69PtE?t=0) by [pixegami](https://www.youtube.com/@pixegami)  
@@ -14,6 +14,10 @@ Download the repository and execute `weight-tracker.py` on some terminal. Doing 
 6. **Exit** - *exits the program*
 
 For convenience, all calorie and weight sheets are stored in the `/tracker-sheets` directory.
+
+## v1.4.2 String Bugfix
+- Fixed bug from incompatible character inputs for `getCal` and `getWeight` functions
+- Fixed exception handling for `UnboundLocalError` when logging calories and weights
 
 ## v1.4.1 Critical Bugfix
 - Fixed bug due to missing directories

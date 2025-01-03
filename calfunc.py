@@ -42,11 +42,15 @@ def getCal():
     except IndexError:
         fr.prErrorMes(f"Please enter a value from {possVal}.")
         exit
+    except UnboundLocalError:
+        fr.prErrorMes(f"Please enter a value from {possVal}.")
+        exit
 
     print(f"\nYou are logging a {mealTypes[chosenType]}.")
 
     if chosenType in range(len(mealTypes) - 1): # For Meals
         mealDesc = html.escape(input("Describe your meal (what did you eat?):\n"))
+        mealDesc = mealDesc.translate(str.maketrans('', '', '@#$%^&*,-'))
         eatenCal = int(input("\nEnter the number of calories(kCal) eaten: "))
         eatenPrt = int(input("Enter the number of protein(g) in the meal: "))
 
@@ -59,6 +63,7 @@ def getCal():
 
     elif chosenType + 1 == len(mealTypes): # For Snacks
         snackName = html.escape(input("What is the name of your snack?: "))
+        snackName = snackName.translate(str.maketrans('', '', '@#$%^&*,-'))
         servSize  = float(input("\nEnter the number of servings eaten: "))
         servCals  = int(input("How many calories(kCal) are in each serving?: "))
         servPrt  = int(input("Enter the number of protein(g) in each serving: "))
@@ -156,7 +161,6 @@ def summFood(cal_dir_path):
 def summToday(cal_file_path):
     fr.prMethodHead("Displaying Calories and Protein Consumed Today")
     foodList = readList(cal_file_path)
-    totalCal, totalPrt = 0, 0
 
     if os.path.getsize(cal_file_path) == 0:
         return 0

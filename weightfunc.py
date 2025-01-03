@@ -29,6 +29,9 @@ def getWeight():
     except ValueError:
         fr.prErrorMes("Only enter the number of your measured weight (lbs).")
         exit
+    except UnboundLocalError:
+        fr.prErrorMes("Only enter the number of your measured weight (lbs).")
+        exit
     
     return weight
 

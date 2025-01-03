@@ -23,7 +23,7 @@ def prProgHead():
     size = os.get_terminal_size()
 
     prLine()
-    print("Weight Tracker v1.4.1".center(size.columns))
+    print("Weight Tracker v1.4.2".center(size.columns))
     print("A Python program to track your calories, protein intake, and weight.".center(size.columns))
     print("-----------------------------------------------".center(size.columns))
     print("Created by Aaron Ramos (ramosaaron2@gmail.com)".center(size.columns))
