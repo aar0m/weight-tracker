@@ -15,6 +15,9 @@ Download the repository and execute `weight-tracker.py` on some terminal. Doing 
 
 For convenience, all calorie and weight sheets are stored in the `/tracker-sheets` directory.
 
+## v1.4.3 Header Update
+- Fix print statements of headers
+
 ## v1.4.2 String Bugfix
 - Fixed bug from incompatible character inputs for `getCal` and `getWeight` functions
 - Fixed exception handling for `UnboundLocalError` when logging calories and weights
