@@ -1,4 +1,4 @@
-# Weight Tracker v1.3.2
+# Weight Tracker v1.4.0
 ### Created by [Aaron Ramos](https://aar0m.github.io/portfolio/) 
 A tool to log calories, protein, and track weight using Python.  
 Based on [Expense Tracking App Project](https://youtu.be/HTD86h69PtE?t=0) by [pixegami](https://www.youtube.com/@pixegami)  
@@ -16,10 +16,10 @@ Download the repository and execute `weight-tracker.py` on some terminal. Doing 
 For convenience, all calorie and weight sheets are stored in the `/tracker-sheets` directory.
 
 ## v1.4.0 Calorie Update
-- Moved formatting, calorie, and weight functions to dedicated python files
-- Changed naming conventions for calorie and weight functions as a result
+- Moved formatting, calorie, and weight functions to dedicated Python files
 - Moved yearly calorie `.csv` files into months under a year directory
-- Added exception handling for `IndexError` when getting logging food
+- Updated naming conventions for calorie and weight functions as a result
+- Fixed exception handling for `IndexError` when getting logging food
 - Added month separators when listing yearly food log
 - Added feature to view total calories and protein consumed on the day (`cal.summToday()`)
 - Added feature to view total and average calories and protein consumed over a week (`cal.summWeek()`)
