@@ -6,14 +6,24 @@ Based on [Expense Tracking App Project](https://youtu.be/HTD86h69PtE?t=0) by [pi
 ## How to Use
 Download the repository and execute `weight-tracker.py` on some terminal. Doing this will prompt you to a *"home screen"* with mutliple options. Entering the value associated with each prompt will lead to a series of other instructions related to that prompt.
 
-1. **Log Calories** - *gets and stores `Snack`/`Meal` calories and protein to `calorie20XX.csv` and `weight20XX.csv`*
-2. **Log Weight** - *gets and stores user's `Weight` to `weight20XX.csv`*
-3. **View 20XX Food Log** - *lists all `Snack`/`Meal` entries*
-4. **View Daily Calories/Protein** - *lists all calories and protein(g) consumed each day*
-5. **View Weight** - *shows average weight based on chosen option (day, week, month)*
+1. **Log Calories** - *gets and stores `Snack`/`Meal` calories and protein to `calorie_XX-20XX.csv` and `weight20XX.csv`*
+2. **View Calories** - *shows average calories and protein based on chosen option (day, week, month)*
+3. **Log Weight** - *gets and stores user's `Weight` to `weight20XX.csv`*
+4. **View Weight** - *shows average weight based on chosen option (day, week, month)*
+5. **View 20XX Food Log** - *lists all `Snack`/`Meal` entries*
 6. **Exit** - *exits the program*
 
 For convenience, all calorie and weight sheets are stored in the `/tracker-sheets` directory.
+
+## v1.4.0 Calorie Update
+- Moved formatting, calorie, and weight functions to dedicated python files
+- Changed naming conventions for calorie and weight functions as a result
+- Moved yearly calorie `.csv` files into months under a year directory
+- Added exception handling for `IndexError` when getting logging food
+- Added month separators when listing yearly food log
+- Added feature to view total calories and protein consumed on the day (`cal.summToday()`)
+- Added feature to view total and average calories and protein consumed over a week (`cal.summWeek()`)
+- Added feature to view total and average calories and protein consumed over a month (`cal.summMonth()`)
 
 ## v1.3.2 Bugfix
 - Fixed f-string `SyntaxError` by replacing double block quotes
@@ -34,7 +44,7 @@ For convenience, all calorie and weight sheets are stored in the `/tracker-sheet
 
 ## v1.1.1 Bugfix
 - Fixed instance where `summWeightToday()` prints incorrect date if no weight is logged for that day (now shows most recent weight entry and reminds user to log their weight today)
-- Moved `calorie20XX.csv` and `weight20XX.csv` to folder `calorie-sheets` and `weight-sheets`
+- Moved `calorie_XX-20XX.csv` and `weight20XX.csv` to folder `calorie-sheets` and `weight-sheets`
 
 ## v1.1.0 Update
 - Added function to calculate average weight over a week/7 day period (`summWeightWeek()`)
