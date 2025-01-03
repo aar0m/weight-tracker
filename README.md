@@ -17,6 +17,7 @@ For convenience, all calorie and weight sheets are stored in the `/tracker-sheet
 
 ## v1.4.3 Header Update
 - Fix print statements of headers
+- Updated usable characters for logging calories (e.g., ',' '&' '-')
 
 ## v1.4.2 String Bugfix
 - Fixed bug from incompatible character inputs for `getCal` and `getWeight` functions

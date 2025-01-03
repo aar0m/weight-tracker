@@ -50,7 +50,7 @@ def getCal():
 
     if chosenType in range(len(mealTypes) - 1): # For Meals
         mealDesc = html.escape(input("Describe your meal (what did you eat?):\n"))
-        mealDesc = mealDesc.translate(str.maketrans('', '', '@#$%^&*,-'))
+        mealDesc = mealDesc.translate(str.maketrans('', '', '@#$%^*;'))
         eatenCal = int(input("\nEnter the number of calories(kCal) eaten: "))
         eatenPrt = int(input("Enter the number of protein(g) in the meal: "))
 
@@ -63,7 +63,7 @@ def getCal():
 
     elif chosenType + 1 == len(mealTypes): # For Snacks
         snackName = html.escape(input("What is the name of your snack?: "))
-        snackName = snackName.translate(str.maketrans('', '', '@#$%^&*,-'))
+        snackName = snackName.translate(str.maketrans('', '', '@#$%^*;'))
         servSize  = float(input("\nEnter the number of servings eaten: "))
         servCals  = int(input("How many calories(kCal) are in each serving?: "))
         servPrt  = int(input("Enter the number of protein(g) in each serving: "))
@@ -82,10 +82,10 @@ def save(food, cal_file_path):
 
     with open(cal_file_path, "a") as f:
         if isinstance(food, Meal):
-            f.write(f"{datetime.date.today()}, M, {food.desc},{food.cal},{food.protein}\n")
+            f.write(f"{datetime.date.today()}; M; {food.desc};{food.cal};{food.protein}\n")
 
         elif isinstance(food, Snack):
-            f.write(f"{datetime.date.today()}, S, {food.name},{food.servings},{food.cal},{food.protein}\n")
+            f.write(f"{datetime.date.today()}; S; {food.name};{food.servings};{food.cal};{food.protein}\n")
     f.close()
 
 def calInterface(cal_file_path):
@@ -129,11 +129,11 @@ def readList(cal_file_path):
 
         for line in lines:
             if line[12] == 'M':
-                calDate, calType, mealDesc, mealCal, mealPrt = line.strip().split(",")
+                calDate, calType, mealDesc, mealCal, mealPrt = line.strip().split(";")
                 line_cal = Meal(date=calDate, desc=mealDesc, cal=int(mealCal), protein=int(mealPrt))
 
             elif line[12] == 'S':
-                calDate, calType, snackName, snackServ, snackCal, snackPrt = line.strip().split(",")
+                calDate, calType, snackName, snackServ, snackCal, snackPrt = line.strip().split(";")
                 line_cal = Snack(
                     date        = calDate,
                     name        = snackName, 
