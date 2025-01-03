@@ -59,7 +59,7 @@ def save(weight, weight_file_path):
             f.close()
 
 def weightInterface(weight_file_path):
-    fr.prMethodHead("Summarizing Logged Weight")
+    fr.prMethodHead("Displaying Logged Weight")
 
     options = ["Today", "Week", "Month", "Year", f"View {datetime.date.today().strftime('%Y')} Weight Log", "Return to Main Menu"]
 
@@ -111,7 +111,7 @@ def readList(weight_file_path):
     return weightList
 
 def summToday(weight_file_path):
-    fr.prMethodHead("Calculating Average Weight Over the Past Week")
+    fr.prMethodHead("Displaying Weight from Today")
     wList = readList(weight_file_path)
 
     if os.path.getsize(weight_file_path) == 0:
@@ -201,7 +201,7 @@ def summYear(weight_file_path):
     fr.prMethodHead(f"Your average weight in {datetime.date.today().strftime('%Y')} is {avgYrWeight:.1f}lbs.")
 
 def summCalendar(weight_file_path):
-    fr.prMethodHead(f"Displaying Weight Over {datetime.date.today().strftime('%Y')}")
+    fr.prMethodHead(f"Displaying Weight Throughout {datetime.date.today().strftime('%Y')}")
     wList = readList(weight_file_path)
 
     if os.path.getsize(weight_file_path) == 0:
