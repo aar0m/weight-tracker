@@ -1,4 +1,4 @@
-# Weight Tracker v1.3.2
+# Weight Tracker v1.4.0
 ### Created by [Aaron Ramos](https://aar0m.github.io/portfolio/) 
 A tool to log calories, protein, and track weight using Python.  
 Based on [Expense Tracking App Project](https://youtu.be/HTD86h69PtE?t=0) by [pixegami](https://www.youtube.com/@pixegami)  
