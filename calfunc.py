@@ -1,3 +1,17 @@
+"""
+///                        -------------------------
+///                              Weight Tracker
+///                        -------------------------
+///                           By Aaron Ramos 2025
+///
+/// All logic functions required to log, view, and handle calorie- and protein-
+/// related items.
+///
+/// @file calfunc.py
+/// @author Aaron Ramos (ramosaaron2@gmail.com)
+///
+"""
+
 from food import Meal
 from food import Snack
 from datetime import datetime

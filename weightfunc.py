@@ -1,3 +1,17 @@
+"""
+///                        -------------------------
+///                              Weight Tracker
+///                        -------------------------
+///                           By Aaron Ramos 2025
+///
+/// All logic functions required to log, view, and handle weight-related items.
+/// 
+///
+/// @file weightfunc.py
+/// @author Aaron Ramos (ramosaaron2@gmail.com)
+///
+"""
+
 from food import Weight
 from datetime import datetime
 import datetime

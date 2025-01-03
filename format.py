@@ -1,3 +1,17 @@
+"""
+///                        -------------------------
+///                              Weight Tracker
+///                        -------------------------
+///                           By Aaron Ramos 2025
+///
+/// Module to conveniently format process headers and error messages.
+/// 
+///
+/// @file format.py
+/// @author Aaron Ramos (ramosaaron2@gmail.com)
+///
+"""
+
 import os
 
 size = os.get_terminal_size()
