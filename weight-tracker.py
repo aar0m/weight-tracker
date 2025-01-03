@@ -23,6 +23,8 @@ def main():
     fr.prProgHead()
 
     Path(f"tracker-sheets/calorie/calories{datetime.date.today().strftime('%Y')}").mkdir(parents=True, exist_ok=True)
+    Path(f"tracker-sheets/weight").mkdir(parents=True, exist_ok=True)
+    
     cal_dir_path = f"tracker-sheets/calorie/calories{datetime.date.today().strftime('%Y')}"
     cal_file_path = f"tracker-sheets/calorie/calories{datetime.date.today().strftime('%Y')}/calories{datetime.date.today().strftime('_%m-%Y')}.csv"
     weight_file_path = f"tracker-sheets/weight/weight{datetime.date.today().strftime('%Y')}.csv"
@@ -44,7 +46,7 @@ def main():
         match chosenOpt:
             case 0:
                 food = cal.getCal()
-                cal.saveCal(food, cal_file_path)
+                cal.save(food, cal_file_path)
             case 1:
                 try:
                     cal.calInterface(cal_file_path)

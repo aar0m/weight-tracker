@@ -34,7 +34,7 @@ def getWeight():
 
 def save(weight, weight_file_path):
     fr.prMethodHead(f"Recorded {weight}lbs to {str(weight_file_path).split('/')[2]}!")
-    
+
     try:
         with open(weight_file_path, "r+") as f:
             lines = f.readlines()
@@ -44,15 +44,16 @@ def save(weight, weight_file_path):
                 
                 with open(weight_file_path, "w") as f:
                     f.writelines(lines)
+                    f.close()
             else:
                 with open(weight_file_path, "a") as f:
                     f.write(f"{datetime.date.today()}, {weight}\n")
-        f.close()
+                    f.close()
 
     except FileNotFoundError:
         with open(weight_file_path, "a") as f:
             f.write(f"{datetime.date.today()}, {weight}\n")
-        f.close()
+            f.close()
 
 def weightInterface(weight_file_path):
     fr.prMethodHead("Summarizing Logged Weight")
